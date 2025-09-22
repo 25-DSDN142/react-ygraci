@@ -18,21 +18,23 @@ function drawInteraction(faces, hands) {
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
 
-    //  let pinkyFingerTipX = hand.pinky_finger_tip.x;
-    //  let pinkyFingerTipY = hand.pinky_finger_tip.y;
+    let pinkyFingerTipX = hand.pinky_finger_tip.x;
+    let pinkyFingerTipY = hand.pinky_finger_tip.y;
 
     /*
     Start drawing on the hands here
     */
 
-    fill(225, 225, 0);
-    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
 
-    // drawPoints(hand)
+    pokeball(indexFingerTipX, indexFingerTipY);
 
+    //lec examples 
+    //fill(225, 225, 0);
+    //ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+    drawPoints(hand)
     //fingerPuppet(indexFingerTipX, indexFingerTipY);
-
     //chameleonHandPuppet(hand)
+
 
     /*
     Stop drawing on the hands here
@@ -42,10 +44,27 @@ function drawInteraction(faces, hands) {
   //------------------------------------------------------
 }
 
+//pokeball 
+
+function pokeball (x,y); {
+  angleMode(DEGREES);
+
+  strokeWeight(7);//ball
+  fill (360);//white
+  arc(700, 400, 400, 400, 5, 175, CHORD);//bottom half
+  fill(255,0,0);//red
+  arc(700, 400, 400, 400, 175, 5, CHORD);//top half
+  
+  strokeWeight(5);//button
+  fill(99,99,99);//dary grey
+  circle(700, 415, 115); //dark circle 
+  fill (227,227,227); //light grey
+  circle(700, 415, 85); //big buttion 
+  circle(700, 415, 45); //small bution 
+}
 
 
-
-
+// lec examples 
 
 function fingerPuppet(x, y) {
   fill(255, 38, 219) // pink
