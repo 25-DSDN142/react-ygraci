@@ -21,17 +21,27 @@ function drawInteraction(faces, hands) {
     let pinkyFingerTipX = hand.pinky_finger_tip.x;
     let pinkyFingerTipY = hand.pinky_finger_tip.y;
 
+    let middleFingerTipX = hand.middle_finger_tip.x;
+    let middleFingerTipY = hand.middle_finger_tip.y;
+
+    let thumbTipX = hand.thumb_tip.x;
+    let thumbTipY = hand.thumb_tip.y;
+
     /*
     Start drawing on the hands here
     */
 
 
-    pokeball(indexFingerTipX, indexFingerTipY);
+    pokeBallWhite(hand);
+    pokeBallRed(hand);
+    pokeBallBackButton(hand);
+    pokeBallBigButton(hand);
+    pokeBallSmallButton(hand);
 
     //lec examples 
     //fill(225, 225, 0);
     //ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
-    drawPoints(hand)
+    //drawPoints(hand)
     //fingerPuppet(indexFingerTipX, indexFingerTipY);
     //chameleonHandPuppet(hand)
 
@@ -44,35 +54,134 @@ function drawInteraction(faces, hands) {
   //------------------------------------------------------
 }
 
-//pokeball 
+//full pokeball code (does not work)
+function pokeBall(hand) {
 
-function pokeball (x,y); {
+  //lec used code to make the pokeball follow my fingers 
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Draw circles at finger positions
+  let centerX = (middle.x + thumb.x) / 2;
+  let centerY = (middle.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+
+
   angleMode(DEGREES);
-
   strokeWeight(7);//ball
+
   fill (360);//white
-  arc(700, 400, 400, 400, 5, 175, CHORD);//bottom half
+  arc(centerX, centerY, pinch, pinch, 5, 175, CHORD);//bottom half
   fill(255,0,0);//red
-  arc(700, 400, 400, 400, 175, 5, CHORD);//top half
+  arc(centerX, centerY, pinch, pinch, 175, 5, CHORD);//top half
   
   strokeWeight(5);//button
   fill(99,99,99);//dary grey
-  circle(700, 415, 115); //dark circle 
+  circle(centerX, centerY, pinch); //dark circle 
   fill (227,227,227); //light grey
-  circle(700, 415, 85); //big buttion 
-  circle(700, 415, 45); //small bution 
+  circle(centerX, centerY, pinch); //big buttion 
+  circle(centerX, centerY, pinch); //small bution 
 }
+
+//top red half
+function pokeBallRed(hand) {
+  
+  //lec used code to make the pokeball follow my fingers
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Draw circles at finger positions
+  let centerX = (middle.x + thumb.x) / 2;
+  let centerY = (middle.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+
+
+  angleMode(DEGREES);
+  strokeWeight(7);//ball
+
+  fill(255,0,0);//red
+  arc(centerX, centerY, pinch, pinch, 175, 5, CHORD);//top half
+}
+
+//Back button
+function pokeBallBackButton(hand) {
+
+  //lec used code to make the pokeball follow my fingers
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Draw circles at finger positions
+  let centerX = (middle.x + thumb.x) / 2;
+  let centerY = (middle.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+
+
+  strokeWeight(5);//button
+  fill(99,99,99);//dary grey
+  circle(centerX, centerY, pinch); //dark circle 
+}
+
+//Big button
+function pokeBallBigButton(hand) {
+
+  //lec used code to make the pokeball follow my fingers
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Draw circles at finger positions
+  let centerX = (middle.x + thumb.x) / 2;
+  let centerY = (middle.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+  
+  strokeWeight(5);//button
+  fill (227,227,227); //light grey
+  circle(centerX, centerY, pinch); //big buttion 
+}
+
+//Small button
+  function pokeBallSmallButton(hand) {
+
+  //lec used code to make the pokeball follow my fingers
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Draw circles at finger positions
+  let centerX = (middle.x + thumb.x) / 2;
+  let centerY = (middle.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+
+  strokeWeight(5);//button
+  fill (227,227,227); //light grey
+  circle(centerX, centerY, pinch); //small bution 
+  }
+
+
 
 
 // lec examples 
 
-function fingerPuppet(x, y) {
+function fingerPuppet(hand) {
   fill(255, 38, 219) // pink
-  ellipse(x, y, 100, 20)
-  ellipse(x, y, 20, 100)
+  ellipse(centerX, y, 100, 20)
+  ellipse(centerX, y, 20, 100)
 
   fill(255, 252, 48) // yellow
-  ellipse(x, y, 20) // draw center 
+  ellipse(centerX, y, 20) // draw center 
 
 }
 
