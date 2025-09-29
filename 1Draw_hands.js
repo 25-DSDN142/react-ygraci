@@ -170,7 +170,12 @@ function pokeBallBigButton(hand) {
   circle(centerX, centerY, pinch); //small bution 
   }
 
+//forkie
+let myImage;
+function prepareInteraction() {
+  myImage = loadImage('/images/Frokie.png')
 
+}
 
 
 // lec examples 
