@@ -1,11 +1,14 @@
 // ----=  HANDS  =----
 /* load images here */
+let Frokie;
+
 function prepareInteraction() {
-  //bgImage = loadImage('/images/background.png');
+  Frokie = loadImage('/images/Frokie.png');
 }
 
 function drawInteraction(faces, hands) {
   // hands part
+  
   // for loop to capture if there is more than one hand on the screen. This applies the same process to all hands.
   for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
@@ -29,12 +32,23 @@ function drawInteraction(faces, hands) {
 
     /*
     Start drawing on the hands here
+    
     */
-    pokeBallWhite(hand); 
-    pokeBallRed(hand);
-    pokeBallBackButton(hand);
-    pokeBallBigButton(hand);
-    pokeBallSmallButton(hand);
+    //pokeBallWhite(hand); 
+    //pokeBallRed(hand);
+    //pokeBallBackButton(hand);
+    //pokeBallBigButton(hand);
+    //pokeBallSmallButton(hand);
+    
+     //lec used code to make the pokeball follow my fingers
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+  image(Frokie, middleFingerTipX/1.6, thumbTipY/1.6, pinch, pinch);
 
     //lec examples 
     //fill(225, 225, 0);
@@ -96,6 +110,7 @@ function pokeBall(hand) {
   circle(centerX, centerY+15, pinch/4.7); //big buttion 
   circle(centerX, centerY+15, pinch/8.8); //small bution 
 }
+
 
 //top red half
 function pokeBallRed(hand) {
@@ -201,14 +216,6 @@ function pokeBallBigButton(hand) {
   strokeWeight(5);//button
   fill (227,227,227); //light grey
   circle(centerX, centerY+15, pinch/8.89); //small bution 
-  }
-
-
-//forkie
-let myImage;
-function prepareInteraction() {
-  myImage = loadImage('/images/Frokie.png')
-
 }
 
 
