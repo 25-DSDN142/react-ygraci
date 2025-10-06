@@ -30,9 +30,7 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the hands here
     */
-
-
-    pokeBallWhite(hand);
+    pokeBallWhite(hand); 
     pokeBallRed(hand);
     pokeBallBackButton(hand);
     pokeBallBigButton(hand);
@@ -70,6 +68,19 @@ function pokeBall(hand) {
   let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
 
 
+  strokeWeight(7);//ball
+  fill (360);//white
+  arc(700, 400, 400, 400, 5, 175, CHORD);//bottom half
+  fill(255,0,0);//red
+  arc(700, 400, 400, 400, 175, 5, CHORD);//top half
+  
+  strokeWeight(5);//button
+  fill(99,99,99);//dary grey
+  circle(700, 415, 115); //dark circle 
+  fill (227,227,227); //light grey
+  circle(700, 415, 85); //big buttion 
+  circle(700, 415, 45); //small bution 
+
   angleMode(DEGREES);
   strokeWeight(7);//ball
 
@@ -80,10 +91,10 @@ function pokeBall(hand) {
   
   strokeWeight(5);//button
   fill(99,99,99);//dary grey
-  circle(centerX, centerY, pinch); //dark circle 
+  circle(centerX, centerY+15, pinch/3.4); //dark circle 
   fill (227,227,227); //light grey
-  circle(centerX, centerY, pinch); //big buttion 
-  circle(centerX, centerY, pinch); //small bution 
+  circle(centerX, centerY+15, pinch/4.7); //big buttion 
+  circle(centerX, centerY+15, pinch/8.8); //small bution 
 }
 
 //top red half
@@ -109,6 +120,28 @@ function pokeBallRed(hand) {
   arc(centerX, centerY, pinch, pinch, 175, 5, CHORD);//top half
 }
 
+//lower white half
+function pokeBallWhite(hand) {
+  
+  //lec used code to make the pokeball follow my fingers
+  // Find the index finger tip and thumb tip
+  let middle = hand.middle_finger_tip;
+  //let finger = hand.pinky_finger_tip;
+  let thumb = hand.thumb_tip;
+
+  // Draw circles at finger positions
+  let centerX = (middle.x + thumb.x) / 2;
+  let centerY = (middle.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
+
+
+  angleMode(DEGREES);
+  strokeWeight(7);//ball
+
+  fill (360);//white
+  arc(centerX, centerY, pinch, pinch, 5, 175, CHORD);//bottom half
+}
 //Back button
 function pokeBallBackButton(hand) {
 
@@ -127,7 +160,7 @@ function pokeBallBackButton(hand) {
 
   strokeWeight(5);//button
   fill(99,99,99);//dary grey
-  circle(centerX, centerY, pinch); //dark circle 
+  circle(centerX, centerY+15, pinch/3.4); //dark circle 
 }
 
 //Big button
@@ -147,7 +180,7 @@ function pokeBallBigButton(hand) {
   
   strokeWeight(5);//button
   fill (227,227,227); //light grey
-  circle(centerX, centerY, pinch); //big buttion 
+  circle(centerX, centerY+15, pinch/4.7); //big buttion 
 }
 
 //Small button
@@ -167,8 +200,9 @@ function pokeBallBigButton(hand) {
 
   strokeWeight(5);//button
   fill (227,227,227); //light grey
-  circle(centerX, centerY, pinch); //small bution 
+  circle(centerX, centerY+15, pinch/8.89); //small bution 
   }
+
 
 //forkie
 let myImage;
