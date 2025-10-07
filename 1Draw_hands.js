@@ -1,7 +1,6 @@
 // ----=  HANDS  =----
 /* load images here */
 let Frokie;
-
 function prepareInteraction() {
   Frokie = loadImage('/images/Frokie.png');
   }
@@ -48,11 +47,9 @@ function drawInteraction(faces, hands) {
     //pokeBallBigButton(hand);
     //pokeBallSmallButton(hand);
    
-    pokeBall(hand);
+    //pokeBall(hand);
   
-    // Calculate the pinch "distance" between finger and thumb
-    
-    //image(Frokie, middleFingerTipX/1.6, thumbTipY/1.6, pinch, pinch);
+    image(Frokie, middleFingerTipX/1.6, thumbTipY/1.6, pinch, pinch);
  
 
 

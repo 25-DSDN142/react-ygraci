@@ -1,15 +1,20 @@
+
+
 // ----=  Faces  =----
 /* load images here */
+let Frokie;
 function prepareInteraction() {
-  //bgImage = loadImage('/images/background.png');
-}
+  Frokie = loadImage('/images/Frokie.png');
+  }
+
+let isMouthOpen = false;
 
 function drawInteraction(faces, hands) {
 
   // for loop to capture if there is more than one face on the screen. This applies the same process to all faces. 
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i]; // face holds all the keypoints of the face\
-    //console.log(face);
+    //  console.log(face);
     if (showKeypoints) {
       drawPoints(face)
     }
@@ -24,67 +29,14 @@ function drawInteraction(faces, hands) {
      face.rightEye
      face.rightEyebrow
     */
-    // Here are some variables you may like to use. 
-    // Face basics
-    let faceCenterX = face.faceOval.centerX;
-    let faceCenterY = face.faceOval.centerY;
-    let faceWidth = face.faceOval.width;
-    let faceheight = face.faceOval.height;
-    // Left eye
-    let leftEyeCenterX = face.leftEye.centerX;
-    let leftEyeCenterY = face.leftEye.centerY;
-    let leftEyeWidth = face.leftEye.width;
-    let leftEyeHeight = face.leftEye.height;
-    // Left eyebrow
-    let leftEyebrowCenterX = face.leftEyebrow.centerX;
-    let leftEyebrowCenterY = face.leftEyebrow.centerY;
-    let leftEyebrowWidth = face.leftEyebrow.width;
-    let leftEyebrowHeight = face.leftEyebrow.height;
 
-    // Lips
-    let lipsCenterX = face.lips.centerX;
-    let lipsCenterY = face.lips.centerY;
-    let lipsWidth = face.lips.width;
-    let lipsHeight = face.lips.height;
-
-    // Right eye
-    let rightEyeCenterX = face.rightEye.centerX;
-    let rightEyeCenterY = face.rightEye.centerY;
-    let rightEyeWidth = face.rightEye.width;
-    let rightEyeHeight = face.rightEye.height;
-
-    // Right eyebrow
-    let rightEyebrowCenterX = face.rightEyebrow.centerX;
-    let rightEyebrowCenterY = face.rightEyebrow.centerY;
-    let rightEyebrowWidth = face.rightEyebrow.width;
-    let rightEyebrowHeight = face.rightEyebrow.height;
-
-    let noseTipX = face.keypoints[4].x;
-    let noseTipY = face.keypoints[4].y;
     /*
     Start drawing on the face here
     */
-    noStroke()
-    fill(225, 225, 0);
-    // fill(get(leftEyeCenterX, leftEyeCenterY))
-
-    ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
-
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
-
-    // drawX(rightEyeCenterX,rightEyeCenterY);
-    // drawX(leftEyeCenterX,leftEyeCenterY);
-
-
-    // drawX(noseTipX,noseTipY); 
-
-    // drawX(face.keypoints[332].x,face.keypoints[332].y);
-    // drawX(face.keypoints[103].x,face.keypoints[103].y);
-
+    checkIfMouthOpen(face);
+    if (isMouthOpen) {
+      image(Frokie, face.keypoints[287].x/1.6, face.keypoints[287].y/1.6, 450, 450);
+    }
 
     /*
     Stop drawing on the face here
@@ -93,6 +45,24 @@ function drawInteraction(faces, hands) {
   }
   //------------------------------------------------------
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
+}
+
+
+function checkIfMouthOpen(face) {
+
+  let upperLip = face.keypoints[13]
+  let lowerLip = face.keypoints[14]
+  // ellipse(lowerLip.x,lowerLip.y,20)
+  // ellipse(upperLip.x,upperLip.y,20)
+
+  let d = dist(upperLip.x, upperLip.y, lowerLip.x, lowerLip.y);
+  //console.log(d)
+  if (d < 20) {
+    isMouthOpen = false;
+  } else {
+    isMouthOpen = true;
+  }
+
 }
 
 function drawX(X, Y) {
