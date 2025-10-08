@@ -22,12 +22,10 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the hands here
     */
-    
 
-    //pokeBall(hand);
-  
-    image(Frokie, middleFingerTipX/1.6, thumbTipY/1.6, pinch, pinch);
-
+    // pinchCircle(hand)
+    fill(225, 225, 0);
+    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
 
     /*
     Stop drawing on the hands here

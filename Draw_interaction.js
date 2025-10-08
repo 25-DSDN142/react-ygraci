@@ -5,6 +5,7 @@ function prepareInteraction() {
   }
 
   let isMouthOpen = false;
+  let goPokeball = true; 
 
 function drawInteraction(faces, hands) {
 
@@ -24,27 +25,25 @@ function drawInteraction(faces, hands) {
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
 
-    let middleFingerTipX = hand.middle_finger_tip.x;
-    let middleFingerTipY = hand.middle_finger_tip.y;
-
     let thumbTipX = hand.thumb_tip.x;
     let thumbTipY = hand.thumb_tip.y;
 
     // Find the index finger tip and thumb tip
-    let middle = hand.middle_finger_tip;
+    let index = hand.index_finger_tip.x;
     //let finger = hand.pinky_finger_tip;
     let thumb = hand.thumb_tip;
 
-    // Calculate the pinch "distance" between finger and thumb
-    let pinch = dist(middle.x, middle.y, thumb.x, thumb.y);
-
+  
     /*
     Start drawing on the hands here
     */
-
-    pokeBall(hand);
-    //image(Frokie, middleFingerTipX/1.6, thumbTipY/1.6, pinch, pinch);
-
+    if (goPokeball) {
+    pokeBall(hand)
+    } 
+    else {
+    image(Frokie, indexFingerTipX/1.6, indexFingerTipY/2, 450, 450);
+    }
+    
     /*
     Stop drawing on the hands here
     */
@@ -104,9 +103,14 @@ function pokeBall(hand) {
     Start drawing on the face here
     */
 checkIfMouthOpen(face);
-    if (isMouthOpen) {
-      image(Frokie, face.keypoints[287].x/1.6, face.keypoints[287].y/1.6, 450, 450);
+
+    if (isMouthOpen == false) {
+      goPokeball=true
     }
+
+    if (isMouthOpen == true) {
+      goPokeball=false
+    } 
 
     /*
     Stop drawing on the face here
@@ -126,7 +130,7 @@ function checkIfMouthOpen(face) {
 
   let d = dist(upperLip.x, upperLip.y, lowerLip.x, lowerLip.y);
   //console.log(d)
-  if (d < 20) {
+  if (d < 10) {
     isMouthOpen = false;
   } else {
     isMouthOpen = true;
