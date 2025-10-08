@@ -4,6 +4,8 @@ function prepareInteraction() {
   Frokie = loadImage('/images/Frokie.png');
   }
 
+  let isMouthOpen = false;
+
 function drawInteraction(faces, hands) {
 
   // hands part
@@ -101,15 +103,11 @@ function pokeBall(hand) {
     /*
     Start drawing on the face here
     */
+checkIfMouthOpen(face);
+    if (isMouthOpen) {
+      image(Frokie, face.keypoints[287].x/1.6, face.keypoints[287].y/1.6, 450, 450);
+    }
 
-    // fill(225, 225, 0);
-    // ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
-
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
     /*
     Stop drawing on the face here
     */
@@ -119,53 +117,19 @@ function pokeBall(hand) {
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
 }
 
+function checkIfMouthOpen(face) {
 
-function drawConnections(hand) {
-  // Draw the skeletal connections
-  push()
-  for (let j = 0; j < connections.length; j++) {
-    let pointAIndex = connections[j][0];
-    let pointBIndex = connections[j][1];
-    let pointA = hand.keypoints[pointAIndex];
-    let pointB = hand.keypoints[pointBIndex];
-    stroke(255, 0, 0);
-    strokeWeight(2);
-    line(pointA.x, pointA.y, pointB.x, pointB.y);
+  let upperLip = face.keypoints[13]
+  let lowerLip = face.keypoints[14]
+  // ellipse(lowerLip.x,lowerLip.y,20)
+  // ellipse(upperLip.x,upperLip.y,20)
+
+  let d = dist(upperLip.x, upperLip.y, lowerLip.x, lowerLip.y);
+  //console.log(d)
+  if (d < 20) {
+    isMouthOpen = false;
+  } else {
+    isMouthOpen = true;
   }
-  pop()
-}
-
-function pinchCircle(hand) { // adapted from https://editor.p5js.org/ml5/sketches/DNbSiIYKB
-  // Find the index finger tip and thumb tip
-  let finger = hand.index_finger_tip;
-  //let finger = hand.pinky_finger_tip;
-  let thumb = hand.thumb_tip;
-
-  // Draw circles at finger positions
-  let centerX = (finger.x + thumb.x) / 2;
-  let centerY = (finger.y + thumb.y) / 2;
-  // Calculate the pinch "distance" between finger and thumb
-  let pinch = dist(finger.x, finger.y, thumb.x, thumb.y);
-
-  // This circle's size is controlled by a "pinch" gesture
-  fill(0, 255, 0, 200);
-  stroke(0);
-  strokeWeight(2);
-  circle(centerX, centerY, pinch);
-
-}
-
-
-// This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
-function drawPoints(feature) {
-
-  push()
-  for (let i = 0; i < feature.keypoints.length; i++) {
-    let element = feature.keypoints[i];
-    noStroke();
-    fill(0, 255, 0);
-    circle(element.x, element.y, 5);
-  }
-  pop()
 
 }
