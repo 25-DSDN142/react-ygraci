@@ -37,11 +37,12 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the hands here
     */
-    if (goPokeball) {
-    pokeBall(hand)
+   //code to change the pokeball and forkie depending on face
+    if (goPokeball) { //if goPokeball is true than pokBall shows 
+    pokeBall(hand) 
     } 
-    else {
-    image(Frokie, indexFingerTipX/1.6, indexFingerTipY/2, 450, 450);
+    else { //if goPokeball is false than frokie shows 
+    image(Frokie, indexFingerTipX/1.6, indexFingerTipY/2, 425, 425);
     }
     
     /*
@@ -84,31 +85,18 @@ function pokeBall(hand) {
   // for loop to capture if there is more than one face on the screen. This applies the same process to all faces. 
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i]; // face holds all the keypoints of the face
-    if (showKeypoints) {
-      drawPoints(face)
-    }
-    // console.log(face);
-    /*
-    Once this program has a face, it knows some things about it.
-    This includes how to draw a box around the face, and an oval. 
-    It also knows where the key points of the following parts are:
-     face.leftEye
-     face.leftEyebrow
-     face.lips
-     face.rightEye
-     face.rightEyebrow
-    */
+    
 
     /*
     Start drawing on the face here
     */
 checkIfMouthOpen(face);
 
-    if (isMouthOpen == false) {
+    if (isMouthOpen == false) { //if mouth is not bigger than 10 it is false which will make goPokball true meaning pokeball shows 
       goPokeball=true
     }
 
-    if (isMouthOpen == true) {
+    if (isMouthOpen == true) { //if mouth is  bigger than 10 it is true which will make goPokball false meaing frokie appers instead 
       goPokeball=false
     } 
 
@@ -121,6 +109,7 @@ checkIfMouthOpen(face);
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
 }
 
+//this code is about checking how wide the mouth is by the lips 
 function checkIfMouthOpen(face) {
 
   let upperLip = face.keypoints[13]
@@ -129,7 +118,8 @@ function checkIfMouthOpen(face) {
   // ellipse(upperLip.x,upperLip.y,20)
 
   let d = dist(upperLip.x, upperLip.y, lowerLip.x, lowerLip.y);
-  //console.log(d)
+
+  //this makes the isMouthOpen false if less than 10 and true if the distance is more that 10 
   if (d < 10) {
     isMouthOpen = false;
   } else {
